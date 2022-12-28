@@ -1,6 +1,4 @@
-/*
-* An example of a main class for a plugin.
-*/
+// An example of a main class for a plugin.
 package com.example.velocitykt
 
 // Imports:
