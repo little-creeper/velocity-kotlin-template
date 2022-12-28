@@ -1,0 +1,16 @@
+###
+### libs.versions.toml - A sample version catalogue for a Velocity plugin made in Kotlin.
+###
+
+[plugins] ### This section contains all the Gradle plugins used.
+kotlin_jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin_kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+shadow = { id = "com.github.johnrengelman.shadow", version.ref = "shadow" }
+
+[libraries] ### This section contains library declarations.
+velocity_api = { module = "com.velocitypowered:velocity-api", version.ref = "velocity" }
+
+[versions] ### This section contains all the dependency versions.
+kotlin = "1.7.21"
+velocity = "3.1.2-SNAPSHOT"
+shadow = "7.1.2"
