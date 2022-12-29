@@ -1,5 +1,6 @@
 // Gradle buildscript for a Velocity plugin made with Kotlin.
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import org.apache.tools.ant.filters.ReplaceTokens
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -14,7 +15,7 @@ plugins {
 
 // The maven group and version of your plugin.
 group = "com.example"
-version = "1.0-SNAPSHOT"
+version = "1.0.0"
 
 repositories {
     // The maven central repository. Many additional libraries are found here.
@@ -36,9 +37,30 @@ dependencies {
     shadow(kotlin("stdlib"))
 }
 
+tasks.register<Copy>("generateTemplates") {
+    // Input properties. Add whatever values you're using in templates here.
+    inputs.property("version", version)
+
+    from("$projectDir/src/templates")
+    into("$projectDir/src/generated/templates")
+
+    /*
+    * Filter the template sources and replace tokens with their values.
+    * Add any tokens you'd like to replace to the map.
+    */
+    filter(ReplaceTokens::class, "tokens" to mapOf("version" to version))
+}
+
 tasks.withType<KotlinCompile> {
     // Use Java 11.
     kotlinOptions.jvmTarget = "11"
+
+    dependsOn("generateTemplates")
+}
+
+sourceSets.main {
+    // Add the templates directory to the main source set.
+    kotlin.srcDir("$projectDir/src/generated/templates")
 }
 
 tasks.withType<ShadowJar> {
@@ -56,4 +78,6 @@ tasks.withType<ShadowJar> {
     // Relocate Kotlin to avoid conflicts.
     relocate("kotlin", "${project.group}.shadow.kotlin")
     relocate("kotlinx", "${project.group}.shadow.kotlinx")
+    relocate("org.intellij", "${project.group}.shadow.intellij")
+    relocate("org.jetbrains", "${project.group}.shadow.jetbrains")
 }

@@ -12,7 +12,7 @@ import org.slf4j.Logger
 @Plugin(
     id = "example",
     name = "ExamplePlugin",
-    version = "0.1.0",
+    version = VERSION,
     description = "A simple example plugin written in Kotlin.",
     authors = ["You"],
 )
