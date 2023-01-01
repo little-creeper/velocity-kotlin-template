@@ -3,6 +3,7 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.apache.tools.ant.filters.ReplaceTokens
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+@Suppress("DSL_SCOPE_VIOLATION") // Works around a bug in IntelliJ.
 plugins {
     // The Kotlin/JVM Gradle plugin. Needed for any Kotlin project targeting the JVM.
     alias(libs.plugins.kotlin.jvm)
